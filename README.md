@@ -1,4 +1,4 @@
 go go server info
 ----------------------
 
-![basic](https://github.com/daniellawrence/go-go-serverinfo/screenshots/basic.png)
+![basic](https://raw.githubusercontent.com/daniellawrence/go-go-serverinfo/master/screenshots/basic.png)
