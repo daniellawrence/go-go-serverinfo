@@ -1,9 +1,9 @@
 run:
 	go get -u github.com/jteeuwen/go-bindata/...
-	go-bindata -o gogoserverinfo static		
+	go-bindata static		
 	go run *.go
 
 build:
 	go get -u github.com/jteeuwen/go-bindata/...
-	go-bindata -o gogoserverinfo static		
-	go build *.go
+	go-bindata static		
+	go build -o go-go-server-info *.go
