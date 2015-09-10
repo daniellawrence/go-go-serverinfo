@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -41,14 +42,32 @@ func json_diskIOCounters(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, string(b))
 }
 
+func embed(w http.ResponseWriter, r *http.Request) {
+	data, _ := Asset("static/index.html")
+	fmt.Println("static!")
+	fmt.Fprintf(w, string(data))
+}
 
 func main() {
 	static_dir := http.FileServer(http.Dir("static"))
-	log.Println("Listening... :3001")	
-	http.Handle("/", static_dir)
+
+	portPtr := flag.Int("port", 3000, "Port to bind go-go-server-info")
+	bindPtr := flag.String("host", "0.0.0.0", "bind IP")
+
+	flag.Parse()
+	bind := fmt.Sprintf("%s:%d", *bindPtr, *portPtr)
+
+
+	log.Println("Listening... " + bind)	
+	http.HandleFunc("/", embed)
 	http.HandleFunc("/json/hostinfo/", json_hostinfo)
 	http.HandleFunc("/json/cpuinfo/", json_cpuinfo)
 	http.HandleFunc("/json/diskpartitions/", json_diskpartitions)
 	http.HandleFunc("/json/diskiocounters/", json_diskIOCounters)
-	http.ListenAndServe(":3001", nil)
+	http.Handle("/dev", static_dir)
+	err := http.ListenAndServe(bind, nil)
+
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
 }
