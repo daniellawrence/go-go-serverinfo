@@ -39,12 +39,20 @@
             </div>
 
             <div class="row">
-		<h3>Cpu</h3>
-		<div class="col-sm-2 portfolio-item" ng-repeat="cpu in cpuinfo">
-			<h3>{{cpu.mhz}}</h3>
-			{{cpu.model_name}}<Br />
-			<strong>core #</strong> {{cpu.core_id}}
-			
+		<h3>CPU & MEMORY</h3>
+		<div class="col-sm-6 portfolio-item">
+		    <h3>{{cpuinfo[0].model_name}}</h3>
+		    <div class="col-sm-2" ng-repeat="cpu in cpuinfo">
+			{{cpu.mhz}}
+		    </div>
+		</div>
+		<div class="col-sm-2 portfolio-item">
+		    <h3>Used Memory</h3>
+		    {{meminfo.used_percent|number:0}} %
+		</div>
+		<div class="col-sm-2 portfolio-item">
+		    <h3>Used Swap</h3>
+		    {{swapinfo.used_percent|number:0}} %
 		</div>
 	    </div>
 
@@ -81,6 +89,12 @@
 	     });
 	     $http.get('/json/diskiocounters/').then(function(response) {
 		 $scope.diskiocounters = response.data;
+	     });
+	     $http.get('/json/meminfo/').then(function(response) {
+		 $scope.meminfo = response.data;
+	     });
+	     $http.get('/json/swapinfo/').then(function(response) {
+		 $scope.swapinfo = response.data;
 	     });
 	     $scope.isRealDevice = function(p) {
 		 return p.device.startsWith('/');
