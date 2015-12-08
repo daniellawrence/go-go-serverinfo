@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"encoding/json"
 	"github.com/shirou/gopsutil/host"
 	"github.com/shirou/gopsutil/disk"
@@ -57,10 +56,4 @@ func jsonDiskInfo() []byte {
 	}
 	jsonPartitions , _ := json.Marshal(disks)
 	return jsonPartitions
-}
-
-func main() {
-	fmt.Println(string(jsonHostInfo()))
-	fmt.Println(string(jsonDiskInfo()))
-	fmt.Println(string(jsonCPUInfo()))
 }

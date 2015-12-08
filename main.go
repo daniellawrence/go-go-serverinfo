@@ -59,7 +59,6 @@ func json_diskIOCounters(w http.ResponseWriter, r *http.Request) {
 
 func embed(w http.ResponseWriter, r *http.Request) {
 	data, _ := Asset("static/index.html")
-	fmt.Println("embed!")
 	fmt.Fprintf(w, string(data))
 }
 
